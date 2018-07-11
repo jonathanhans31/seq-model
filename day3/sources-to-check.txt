@@ -1,0 +1,4 @@
+https://github.com/jisungk/deepjazz
+https://github.com/GuiMarion/DeepJazz/blob/master/ToMidi.py
+https://github.com/jg1141/deep-learning-nanodegree/blob/master/20170319%20DeepJazz/lstm.py
+https://discuss.pytorch.org/t/dropout-in-lstm/7784/4

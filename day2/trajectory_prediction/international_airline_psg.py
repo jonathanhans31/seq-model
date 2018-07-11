@@ -44,7 +44,8 @@ def get_batch(x, y, window_size, idx = -1):
     _y = y[idx:idx+window_size]
     var_x = torch.from_numpy(_x)
     var_y = torch.from_numpy(_y)
-    return var_x.cuda(), var_y.cuda(), _x, _y
+    # return var_x.cuda(), var_y.cuda(), _x, _y
+    return var_x, var_y, _x, _y
 
 var_x, var_y, x, y = get_batch(train_x, train_y, WINDOW_SIZE,0)
 print("\nSample Data")
@@ -59,7 +60,7 @@ n_hidden = 64
 n_output = 1
 
 net = Model(n_input, n_hidden, n_output)
-net.cuda()
+# net.cuda()
 num_params = 0
 for p in net.parameters():
     num_params += p.numel()
@@ -78,7 +79,7 @@ def train():
     optimizer = optim.Adam(net.parameters(), lr=0.001)
     loss_fn = nn.MSELoss()
 
-    n_steps = 10000
+    n_steps = 100000
     n_train = len(train_x)-WINDOW_SIZE
     log_step = 1000
     losses = []

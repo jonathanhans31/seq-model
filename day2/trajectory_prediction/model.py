@@ -23,8 +23,8 @@ class Model(nn.Module):
 
     def init_hidden(self):
         # The axes semantics are (num_layers, minibatch_size, hidden_dim)
-        return (torch.zeros(self.n_layers, 1, self.hidden_dim).cuda(),
-                torch.zeros(self.n_layers, 1, self.hidden_dim).cuda())
+        return (torch.zeros(self.n_layers, 1, self.hidden_dim),
+                torch.zeros(self.n_layers, 1, self.hidden_dim))
     def forward(self, x):
         N_sequence = len(x)
         output, hidden = self.main(x, self.hidden)
