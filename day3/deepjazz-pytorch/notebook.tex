@@ -1,0 +1,787 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{train}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{from} \PY{n+nn}{model} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm}
+        
+        
+        \PY{c+c1}{\PYZsh{} data preprocessing import}
+        \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{print\PYZus{}function}
+        \PY{k+kn}{import} \PY{n+nn}{IPython}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{from} \PY{n+nn}{music21} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{grammar} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{qa} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{preprocess} \PY{k}{import} \PY{o}{*} 
+        \PY{k+kn}{from} \PY{n+nn}{music\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k}{def} \PY{n+nf}{mkdir}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+                \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{n}{directory}\PY{p}{)}
+        \PY{n}{mkdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{models/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{experiment\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GAN}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{n\PYZus{}values}\PY{p}{,} \PY{n}{indices\PYZus{}values} \PY{o}{=} \PY{n}{load\PYZus{}music\PYZus{}utils}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shape of X:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of training examples:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tx (length of sequence):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total \PYZsh{} of unique values:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}values}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of Y:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+shape of X: (60, 100, 78)
+number of training examples: 60
+Tx (length of sequence): 100
+total \# of unique values: 78
+Shape of Y: (100, 60, 78)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Convert X into (Tx, n\PYZus{}sample, n\PYZus{}feature)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(Tx, n\PYZus{}sample, n\PYZus{}feature):}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(Tx, n\_sample, n\_feature): (100, 60, 78)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Setup parameters}
+        \PY{n}{n\PYZus{}sequence} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{n\PYZus{}step} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{n\PYZus{}input} \PY{o}{=} \PY{n}{n\PYZus{}output} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+        \PY{n}{n\PYZus{}hidden} \PY{o}{=} \PY{l+m+mi}{128}
+        \PY{n}{n\PYZus{}epoch} \PY{o}{=} \PY{l+m+mi}{150}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Setup model, optimizer}
+        \PY{n}{net} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{n\PYZus{}input}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{p}{,} \PY{n}{n\PYZus{}output}\PY{p}{)}
+        \PY{n}{disc} \PY{o}{=} \PY{n}{FFDiscriminator}\PY{p}{(}\PY{n}{n\PYZus{}sequence}\PY{o}{*}\PY{n}{n\PYZus{}output}\PY{p}{,} \PY{n}{n\PYZus{}hidden} \PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Real of Fake}
+        \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}
+        \PY{n}{disc\PYZus{}optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{disc}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}
+        
+        \PY{n}{net}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+        \PY{n}{disc}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} FFDiscriminator(
+          (main): Sequential(
+            (0): Linear(in\_features=7800, out\_features=128, bias=True)
+            (1): ReLU(inplace)
+            (2): Linear(in\_features=128, out\_features=1, bias=True)
+          )
+        )
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} print(\PYZdq{}Test model inference\PYZdq{})}
+        
+        \PY{c+c1}{\PYZsh{} dummy\PYZus{}x = torch.randn([n\PYZus{}sequence,1,n\PYZus{}input]).cuda()}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}Input Size:\PYZdq{},dummy\PYZus{}x.size())}
+        
+        \PY{c+c1}{\PYZsh{} dummy\PYZus{}pred,\PYZus{} = net(dummy\PYZus{}x)}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}Output size:\PYZdq{}, dummy\PYZus{}pred.size())}
+        
+        \PY{c+c1}{\PYZsh{} dummy\PYZus{}label = (torch.randn(dummy\PYZus{}pred.size())\PYZgt{}0.5).argmax(dim=1)}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}Label size:\PYZdq{},dummy\PYZus{}label)}
+        
+        \PY{c+c1}{\PYZsh{} dummy\PYZus{}loss = F.cross\PYZus{}entropy(dummy\PYZus{}pred, dummy\PYZus{}label)}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}Loss\PYZdq{}, dummy\PYZus{}loss.data.numpy())}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float32}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        
+        \PY{n}{losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}epoch}\PY{p}{)}\PY{p}{:}
+            \PY{n}{total\PYZus{}loss} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{step} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}step}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{step}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} (30,1,78)}
+                \PY{n}{y} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{step}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} (30,1)}
+                \PY{n}{y\PYZus{}seq} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{step}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{float}\PY{p}{)} \PY{c+c1}{\PYZsh{} (30,1,78)}
+                
+                \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                \PY{n}{y\PYZus{}seq} \PY{o}{=} \PY{n}{y\PYZus{}seq}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Initialize hidden state}
+                \PY{n}{net}\PY{o}{.}\PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{init\PYZus{}hidden}\PY{p}{(}\PY{n}{use\PYZus{}cuda}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Feed the data}
+                \PY{n}{prob\PYZus{}y}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n}{x}\PY{p}{)}                             \PY{c+c1}{\PYZsh{} (30,78)}
+                
+                \PY{c+c1}{\PYZsh{} Discriminator\PYZsq{}s Step}
+                \PY{c+c1}{\PYZsh{} ===========================================================================================}
+                \PY{c+c1}{\PYZsh{} Feed the prob\PYZus{}y to the FFDiscriminator}
+                \PY{n}{fake\PYZus{}prob} \PY{o}{=} \PY{n}{disc}\PY{p}{(}\PY{n}{prob\PYZus{}y}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{loss\PYZus{}gan\PYZus{}fake} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{binary\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{fake\PYZus{}prob}\PY{p}{,} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{fake\PYZus{}prob}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{real\PYZus{}prob} \PY{o}{=} \PY{n}{disc}\PY{p}{(}\PY{n}{y\PYZus{}seq}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{loss\PYZus{}gan\PYZus{}real} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{binary\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{real\PYZus{}prob}\PY{p}{,} \PY{n}{torch}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{real\PYZus{}prob}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{disc\PYZus{}loss} \PY{o}{=} \PY{n}{loss\PYZus{}gan\PYZus{}real} \PY{o}{+} \PY{n}{loss\PYZus{}gan\PYZus{}fake}
+                
+                \PY{n}{disc\PYZus{}optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                \PY{n}{disc\PYZus{}loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+                \PY{n}{disc\PYZus{}optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Generator\PYZsq{}s Step}
+                \PY{c+c1}{\PYZsh{} ===========================================================================================}
+                \PY{n}{net}\PY{o}{.}\PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{init\PYZus{}hidden}\PY{p}{(}\PY{n}{use\PYZus{}cuda}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{prob\PYZus{}y}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                \PY{n}{fake\PYZus{}prob} \PY{o}{=} \PY{n}{disc}\PY{p}{(}\PY{n}{prob\PYZus{}y}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{gan\PYZus{}loss} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{binary\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{fake\PYZus{}prob}\PY{p}{,} \PY{n}{torch}\PY{o}{.}\PY{n}{ones\PYZus{}like}\PY{p}{(}\PY{n}{fake\PYZus{}prob}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{chord\PYZus{}loss} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{cross\PYZus{}entropy}\PY{p}{(}\PY{n}{prob\PYZus{}y}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                
+                \PY{n}{loss} \PY{o}{=} \PY{n}{chord\PYZus{}loss} \PY{o}{+} \PY{n}{gan\PYZus{}loss}
+                
+                \PY{c+c1}{\PYZsh{} Backward pass}
+                \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+                \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+                
+                \PY{n}{total\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}         print(list(y.data.numpy().squeeze()))}
+                
+            \PY{n}{losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{total\PYZus{}loss}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Loss }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{total\PYZus{}loss}\PY{p}{)}\PY{p}{)}
+            \PY{n}{save\PYZus{}path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{models/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}deepjazz.pth}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{experiment\PYZus{}id}\PY{p}{,} \PY{n}{epoch}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saving the model to}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{save\PYZus{}path}\PY{p}{)}
+            \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{state\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{save\PYZus{}path}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training
+Epoch 0, Loss 715.5747337341309
+Saving the model to models/GAN\_0\_deepjazz.pth
+Epoch 1, Loss 1785.5273280143738
+Saving the model to models/GAN\_1\_deepjazz.pth
+Epoch 2, Loss 2393.1868720054626
+Saving the model to models/GAN\_2\_deepjazz.pth
+Epoch 3, Loss 1603.4001197814941
+Saving the model to models/GAN\_3\_deepjazz.pth
+Epoch 4, Loss 684.1167373657227
+Saving the model to models/GAN\_4\_deepjazz.pth
+Epoch 5, Loss 576.2429103851318
+Saving the model to models/GAN\_5\_deepjazz.pth
+Epoch 6, Loss 562.674334526062
+Saving the model to models/GAN\_6\_deepjazz.pth
+Epoch 7, Loss 604.6301383972168
+Saving the model to models/GAN\_7\_deepjazz.pth
+Epoch 8, Loss 599.9206228256226
+Saving the model to models/GAN\_8\_deepjazz.pth
+Epoch 9, Loss 565.1851501464844
+Saving the model to models/GAN\_9\_deepjazz.pth
+Epoch 10, Loss 610.5361547470093
+Saving the model to models/GAN\_10\_deepjazz.pth
+Epoch 11, Loss 600.2499160766602
+Saving the model to models/GAN\_11\_deepjazz.pth
+Epoch 12, Loss 601.536506652832
+Saving the model to models/GAN\_12\_deepjazz.pth
+Epoch 13, Loss 602.0386447906494
+Saving the model to models/GAN\_13\_deepjazz.pth
+Epoch 14, Loss 601.4442529678345
+Saving the model to models/GAN\_14\_deepjazz.pth
+Epoch 15, Loss 628.0796804428101
+Saving the model to models/GAN\_15\_deepjazz.pth
+Epoch 16, Loss 623.4698715209961
+Saving the model to models/GAN\_16\_deepjazz.pth
+Epoch 17, Loss 622.0658445358276
+Saving the model to models/GAN\_17\_deepjazz.pth
+Epoch 18, Loss 652.2962961196899
+Saving the model to models/GAN\_18\_deepjazz.pth
+Epoch 19, Loss 642.0220260620117
+Saving the model to models/GAN\_19\_deepjazz.pth
+Epoch 20, Loss 642.9547338485718
+Saving the model to models/GAN\_20\_deepjazz.pth
+Epoch 21, Loss 657.4198131561279
+Saving the model to models/GAN\_21\_deepjazz.pth
+Epoch 22, Loss 650.2783441543579
+Saving the model to models/GAN\_22\_deepjazz.pth
+Epoch 23, Loss 646.8237285614014
+Saving the model to models/GAN\_23\_deepjazz.pth
+Epoch 24, Loss 665.7201519012451
+Saving the model to models/GAN\_24\_deepjazz.pth
+Epoch 25, Loss 650.2892513275146
+Saving the model to models/GAN\_25\_deepjazz.pth
+Epoch 26, Loss 664.6706237792969
+Saving the model to models/GAN\_26\_deepjazz.pth
+Epoch 27, Loss 717.8415098190308
+Saving the model to models/GAN\_27\_deepjazz.pth
+Epoch 28, Loss 689.9922885894775
+Saving the model to models/GAN\_28\_deepjazz.pth
+Epoch 29, Loss 654.261064529419
+Saving the model to models/GAN\_29\_deepjazz.pth
+Epoch 30, Loss 718.8159017562866
+Saving the model to models/GAN\_30\_deepjazz.pth
+Epoch 31, Loss 726.514048576355
+Saving the model to models/GAN\_31\_deepjazz.pth
+Epoch 32, Loss 729.3363151550293
+Saving the model to models/GAN\_32\_deepjazz.pth
+Epoch 33, Loss 723.375186920166
+Saving the model to models/GAN\_33\_deepjazz.pth
+Epoch 34, Loss 745.0532674789429
+Saving the model to models/GAN\_34\_deepjazz.pth
+Epoch 35, Loss 730.4118204116821
+Saving the model to models/GAN\_35\_deepjazz.pth
+Epoch 36, Loss 700.7439241409302
+Saving the model to models/GAN\_36\_deepjazz.pth
+Epoch 37, Loss 725.1577711105347
+Saving the model to models/GAN\_37\_deepjazz.pth
+Epoch 38, Loss 748.1827964782715
+Saving the model to models/GAN\_38\_deepjazz.pth
+Epoch 39, Loss 736.5676498413086
+Saving the model to models/GAN\_39\_deepjazz.pth
+Epoch 40, Loss 747.7502107620239
+Saving the model to models/GAN\_40\_deepjazz.pth
+Epoch 41, Loss 776.9734163284302
+Saving the model to models/GAN\_41\_deepjazz.pth
+Epoch 42, Loss 793.7750453948975
+Saving the model to models/GAN\_42\_deepjazz.pth
+Epoch 43, Loss 791.28883934021
+Saving the model to models/GAN\_43\_deepjazz.pth
+Epoch 44, Loss 780.3044185638428
+Saving the model to models/GAN\_44\_deepjazz.pth
+Epoch 45, Loss 758.2569303512573
+Saving the model to models/GAN\_45\_deepjazz.pth
+Epoch 46, Loss 735.3864250183105
+Saving the model to models/GAN\_46\_deepjazz.pth
+Epoch 47, Loss 1696.419023513794
+Saving the model to models/GAN\_47\_deepjazz.pth
+Epoch 48, Loss 8967.185592651367
+Saving the model to models/GAN\_48\_deepjazz.pth
+Epoch 49, Loss 32429.502227783203
+Saving the model to models/GAN\_49\_deepjazz.pth
+Epoch 50, Loss 42611.98830986023
+Saving the model to models/GAN\_50\_deepjazz.pth
+Epoch 51, Loss 53345.61993217468
+Saving the model to models/GAN\_51\_deepjazz.pth
+Epoch 52, Loss 37272.769929885864
+Saving the model to models/GAN\_52\_deepjazz.pth
+Epoch 53, Loss 27963.25824737549
+Saving the model to models/GAN\_53\_deepjazz.pth
+Epoch 54, Loss 10170.814558029175
+Saving the model to models/GAN\_54\_deepjazz.pth
+Epoch 55, Loss 1039.1604108810425
+Saving the model to models/GAN\_55\_deepjazz.pth
+Epoch 56, Loss 2396.2874870300293
+Saving the model to models/GAN\_56\_deepjazz.pth
+Epoch 57, Loss 2628.022455215454
+Saving the model to models/GAN\_57\_deepjazz.pth
+Epoch 58, Loss 2864.17835521698
+Saving the model to models/GAN\_58\_deepjazz.pth
+Epoch 59, Loss 4140.115816116333
+Saving the model to models/GAN\_59\_deepjazz.pth
+Epoch 60, Loss 3123.6550483703613
+Saving the model to models/GAN\_60\_deepjazz.pth
+Epoch 61, Loss 4874.88142490387
+Saving the model to models/GAN\_61\_deepjazz.pth
+Epoch 62, Loss 2883.7358388900757
+Saving the model to models/GAN\_62\_deepjazz.pth
+Epoch 63, Loss 906.319128036499
+Saving the model to models/GAN\_63\_deepjazz.pth
+Epoch 64, Loss 1356.0085334777832
+Saving the model to models/GAN\_64\_deepjazz.pth
+Epoch 65, Loss 1102.689290046692
+Saving the model to models/GAN\_65\_deepjazz.pth
+Epoch 66, Loss 771.9730854034424
+Saving the model to models/GAN\_66\_deepjazz.pth
+Epoch 67, Loss 875.7573823928833
+Saving the model to models/GAN\_67\_deepjazz.pth
+Epoch 68, Loss 1008.5733442306519
+Saving the model to models/GAN\_68\_deepjazz.pth
+Epoch 69, Loss 755.2663769721985
+Saving the model to models/GAN\_69\_deepjazz.pth
+Epoch 70, Loss 842.1425762176514
+Saving the model to models/GAN\_70\_deepjazz.pth
+Epoch 71, Loss 786.0908584594727
+Saving the model to models/GAN\_71\_deepjazz.pth
+Epoch 72, Loss 774.076367855072
+Saving the model to models/GAN\_72\_deepjazz.pth
+Epoch 73, Loss 902.2472853660583
+Saving the model to models/GAN\_73\_deepjazz.pth
+Epoch 74, Loss 713.5677824020386
+Saving the model to models/GAN\_74\_deepjazz.pth
+Epoch 75, Loss 843.1502885818481
+Saving the model to models/GAN\_75\_deepjazz.pth
+Epoch 76, Loss 815.6307497024536
+Saving the model to models/GAN\_76\_deepjazz.pth
+Epoch 77, Loss 935.2248754501343
+Saving the model to models/GAN\_77\_deepjazz.pth
+Epoch 78, Loss 889.8327884674072
+Saving the model to models/GAN\_78\_deepjazz.pth
+Epoch 79, Loss 880.7720785140991
+Saving the model to models/GAN\_79\_deepjazz.pth
+Epoch 80, Loss 917.9106059074402
+Saving the model to models/GAN\_80\_deepjazz.pth
+Epoch 81, Loss 803.4923486709595
+Saving the model to models/GAN\_81\_deepjazz.pth
+Epoch 82, Loss 912.6623659133911
+Saving the model to models/GAN\_82\_deepjazz.pth
+Epoch 83, Loss 787.9567756652832
+Saving the model to models/GAN\_83\_deepjazz.pth
+Epoch 84, Loss 769.7314577102661
+Saving the model to models/GAN\_84\_deepjazz.pth
+Epoch 85, Loss 848.7409715652466
+Saving the model to models/GAN\_85\_deepjazz.pth
+Epoch 86, Loss 817.9720649719238
+Saving the model to models/GAN\_86\_deepjazz.pth
+Epoch 87, Loss 1031.462378025055
+Saving the model to models/GAN\_87\_deepjazz.pth
+Epoch 88, Loss 712.7576532363892
+Saving the model to models/GAN\_88\_deepjazz.pth
+Epoch 89, Loss 854.759316444397
+Saving the model to models/GAN\_89\_deepjazz.pth
+Epoch 90, Loss 814.8050727844238
+Saving the model to models/GAN\_90\_deepjazz.pth
+Epoch 91, Loss 894.631031036377
+Saving the model to models/GAN\_91\_deepjazz.pth
+Epoch 92, Loss 934.7593202590942
+Saving the model to models/GAN\_92\_deepjazz.pth
+Epoch 93, Loss 829.6140098571777
+Saving the model to models/GAN\_93\_deepjazz.pth
+Epoch 94, Loss 767.1971082687378
+Saving the model to models/GAN\_94\_deepjazz.pth
+Epoch 95, Loss 767.6013717651367
+Saving the model to models/GAN\_95\_deepjazz.pth
+Epoch 96, Loss 757.4942598342896
+Saving the model to models/GAN\_96\_deepjazz.pth
+Epoch 97, Loss 740.2316780090332
+Saving the model to models/GAN\_97\_deepjazz.pth
+Epoch 98, Loss 769.7671527862549
+Saving the model to models/GAN\_98\_deepjazz.pth
+Epoch 99, Loss 828.7096395492554
+Saving the model to models/GAN\_99\_deepjazz.pth
+Epoch 100, Loss 868.9976024627686
+Saving the model to models/GAN\_100\_deepjazz.pth
+Epoch 101, Loss 766.8583889007568
+Saving the model to models/GAN\_101\_deepjazz.pth
+Epoch 102, Loss 811.9235401153564
+Saving the model to models/GAN\_102\_deepjazz.pth
+Epoch 103, Loss 845.5573635101318
+Saving the model to models/GAN\_103\_deepjazz.pth
+Epoch 104, Loss 831.5645980834961
+Saving the model to models/GAN\_104\_deepjazz.pth
+Epoch 105, Loss 832.6157693862915
+Saving the model to models/GAN\_105\_deepjazz.pth
+Epoch 106, Loss 894.4226312637329
+Saving the model to models/GAN\_106\_deepjazz.pth
+Epoch 107, Loss 761.6975440979004
+Saving the model to models/GAN\_107\_deepjazz.pth
+Epoch 108, Loss 809.2255754470825
+Saving the model to models/GAN\_108\_deepjazz.pth
+Epoch 109, Loss 809.7551517486572
+Saving the model to models/GAN\_109\_deepjazz.pth
+Epoch 110, Loss 895.6041879653931
+Saving the model to models/GAN\_110\_deepjazz.pth
+Epoch 111, Loss 818.7526054382324
+Saving the model to models/GAN\_111\_deepjazz.pth
+Epoch 112, Loss 812.4434118270874
+Saving the model to models/GAN\_112\_deepjazz.pth
+Epoch 113, Loss 839.8631315231323
+Saving the model to models/GAN\_113\_deepjazz.pth
+Epoch 114, Loss 1015.0926151275635
+Saving the model to models/GAN\_114\_deepjazz.pth
+Epoch 115, Loss 822.4765300750732
+Saving the model to models/GAN\_115\_deepjazz.pth
+Epoch 116, Loss 1238.8577737808228
+Saving the model to models/GAN\_116\_deepjazz.pth
+Epoch 117, Loss 2109.6111917495728
+Saving the model to models/GAN\_117\_deepjazz.pth
+Epoch 118, Loss 1469.8373851776123
+Saving the model to models/GAN\_118\_deepjazz.pth
+Epoch 119, Loss 2272.425281524658
+Saving the model to models/GAN\_119\_deepjazz.pth
+Epoch 120, Loss 880.4773254394531
+Saving the model to models/GAN\_120\_deepjazz.pth
+Epoch 121, Loss 951.7003746032715
+Saving the model to models/GAN\_121\_deepjazz.pth
+Epoch 122, Loss 1022.8656673431396
+Saving the model to models/GAN\_122\_deepjazz.pth
+Epoch 123, Loss 1061.1788864135742
+Saving the model to models/GAN\_123\_deepjazz.pth
+Epoch 124, Loss 1104.4953527450562
+Saving the model to models/GAN\_124\_deepjazz.pth
+Epoch 125, Loss 1113.9088163375854
+Saving the model to models/GAN\_125\_deepjazz.pth
+Epoch 126, Loss 1112.686598777771
+Saving the model to models/GAN\_126\_deepjazz.pth
+Epoch 127, Loss 1101.173336982727
+Saving the model to models/GAN\_127\_deepjazz.pth
+Epoch 128, Loss 1065.6776809692383
+Saving the model to models/GAN\_128\_deepjazz.pth
+Epoch 129, Loss 1052.6276607513428
+Saving the model to models/GAN\_129\_deepjazz.pth
+Epoch 130, Loss 1053.8834056854248
+Saving the model to models/GAN\_130\_deepjazz.pth
+Epoch 131, Loss 1091.0793266296387
+Saving the model to models/GAN\_131\_deepjazz.pth
+Epoch 132, Loss 4880.829495429993
+Saving the model to models/GAN\_132\_deepjazz.pth
+Epoch 133, Loss 5068.177374839783
+Saving the model to models/GAN\_133\_deepjazz.pth
+Epoch 134, Loss 4322.872354507446
+Saving the model to models/GAN\_134\_deepjazz.pth
+Epoch 135, Loss 1245.0810565948486
+Saving the model to models/GAN\_135\_deepjazz.pth
+Epoch 136, Loss 1201.0199012756348
+Saving the model to models/GAN\_136\_deepjazz.pth
+Epoch 137, Loss 1073.2615385055542
+Saving the model to models/GAN\_137\_deepjazz.pth
+Epoch 138, Loss 1122.4322681427002
+Saving the model to models/GAN\_138\_deepjazz.pth
+Epoch 139, Loss 1153.9765539169312
+Saving the model to models/GAN\_139\_deepjazz.pth
+Epoch 140, Loss 1295.4151458740234
+Saving the model to models/GAN\_140\_deepjazz.pth
+Epoch 141, Loss 1561.5197820663452
+Saving the model to models/GAN\_141\_deepjazz.pth
+Epoch 142, Loss 2574.9058837890625
+Saving the model to models/GAN\_142\_deepjazz.pth
+Epoch 143, Loss 1133.3985118865967
+Saving the model to models/GAN\_143\_deepjazz.pth
+Epoch 144, Loss 5124.536806106567
+Saving the model to models/GAN\_144\_deepjazz.pth
+Epoch 145, Loss 1990.1188373565674
+Saving the model to models/GAN\_145\_deepjazz.pth
+Epoch 146, Loss 2672.6062631607056
+Saving the model to models/GAN\_146\_deepjazz.pth
+Epoch 147, Loss 6837.740295410156
+Saving the model to models/GAN\_147\_deepjazz.pth
+Epoch 148, Loss 7723.587652206421
+Saving the model to models/GAN\_148\_deepjazz.pth
+Epoch 149, Loss 21858.796255111694
+Saving the model to models/GAN\_149\_deepjazz.pth
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{losses}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
